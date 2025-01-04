@@ -1,5 +1,4 @@
 from contextlib import asynccontextmanager
-from multiprocessing import pool
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,7 +20,12 @@ async def lifecycle(app: FastAPI):
 
 
 def create_app():
-	app = FastAPI(default_response_class=ORJSONResponse, lifespan=lifecycle)
+	app = FastAPI(
+		default_response_class=ORJSONResponse,
+		lifespan=lifecycle,
+		title=Settings.API_TITLE,
+		version=Settings.API_VERSION,
+	)
 
 	app.add_middleware(middleware_class=GZipMiddleware)
 	app.add_middleware(

@@ -2,6 +2,7 @@ from uuid import uuid4
 
 from src.common.basedb import DatabasePool
 from src.common.basemodel import UserRole
+from src.common.logger import Logger
 from src.common.oauth import get_password_hash
 
 TABLE = """
@@ -21,6 +22,7 @@ INSERT = """
 
 
 async def initialize_users(pool: DatabasePool):
+	Logger.debug("Initializing users...")
 	async with pool.pool.connection() as conn:
 		await conn.execute(TABLE)
 		count_users = await conn.query_first(sql="SELECT COUNT(*) AS total FROM OAuth2")
@@ -35,3 +37,5 @@ async def initialize_users(pool: DatabasePool):
 		for user in users:
 			user["password"] = get_password_hash(user["password"])
 			await conn.execute(sql=INSERT, parameters=user)
+
+	Logger.debug("Users initialized.")

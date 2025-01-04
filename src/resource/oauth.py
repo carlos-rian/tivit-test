@@ -6,7 +6,7 @@ from src.service.oauth import OAuthService
 router = APIRouter()
 
 
-@router.post("/token", response_model=PostTokenOut)
+@router.post("/token", response_model=PostTokenOut, status_code=201)
 async def post_token(
 	username: str = Query(
 		min_length=4,

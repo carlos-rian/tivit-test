@@ -7,7 +7,8 @@ from passlib.context import CryptContext
 
 from src.common.basedb import DatabasePool
 from src.common.basemodel import User
-from src.main import Settings
+from src.common.logger import Logger
+from src.config.settings import Settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -21,6 +22,7 @@ def get_password_hash(password: str) -> str:
 
 
 def create_access_token(data: dict) -> dict:
+	Logger.debug(f"Creating access token for: {data}")
 	to_encode = data.copy()
 	expire = datetime.now(tz=UTC) + timedelta(minutes=Settings.JWT_EXPIRE_MINUTES)
 	to_encode.update({"exp": expire})
@@ -34,6 +36,7 @@ def create_access_token(data: dict) -> dict:
 
 async def get_user(username: str):
 	async with DatabasePool.pool.connection() as conn:
+		Logger.debug(f"Getting user: {username}")
 		return await conn.query_first(
 			sql="SELECT * FROM OAuth2 WHERE username = :username",
 			parameters={"username": username},
@@ -43,25 +46,26 @@ async def get_user(username: str):
 
 async def get_current_user(token: str):
 	credentials_exception = HTTPException(
-		status_code=status.HTTP_401_UNAUTHORIZED,
-		detail="Invalid credentials",
-		headers={"WWW-Authenticate": "Bearer"},
+		status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials", headers={"WWW-Authenticate": "Bearer"}
 	)
 
 	try:
+		Logger.info(f"Decoding token: {token}")
 		payload = jwt.decode(token, Settings.JWT_SECRET_KEY, algorithms=[Settings.JWT_ALGORITHM])
 
-		if payload.get("sub") is None:
+		if payload.get("sub") is None or payload.get("role") is None:
 			raise credentials_exception
 
 		token_data = User.model_validate({"username": payload.get("sub"), "role": payload.get("role")})
 
 	except JWTError:
+		Logger.error(f"JWTError: {JWTError}")
 		raise credentials_exception
 
 	user = await get_user(username=token_data.username)
 
-	if user is None:
-		raise credentials_exception
+	if user := await get_user(username=token_data.username):
+		Logger.debug(f"User found: {user}")
+		return user
 
-	return user
+	raise credentials_exception

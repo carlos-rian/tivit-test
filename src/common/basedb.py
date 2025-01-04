@@ -1,5 +1,6 @@
 from pysqlx_engine import PySQLXEnginePool
 
+from src.common.logger import Logger
 from src.config.settings import Settings
 
 
@@ -18,8 +19,10 @@ class DatabasePool:
 
 	@classmethod
 	async def start(cls):
+		Logger.info("Starting database pool")
 		await cls.pool.start()
 
 	@classmethod
 	async def stop(cls):
+		Logger.info("Stopping database pool")
 		await cls.pool.stop()
