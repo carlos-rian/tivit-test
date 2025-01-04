@@ -46,6 +46,7 @@ combine-as-imports = true
 pythonpaths = "."
 addopts = "-p no:warnings"
 asyncio_default_fixture_loop_scope = "session"
+env_files = [".env"]
 
 [tool.taskipy.tasks]
 lint = "ruff check . && ruff check . --diff"
