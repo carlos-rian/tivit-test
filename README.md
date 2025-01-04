@@ -11,6 +11,8 @@ The project is a REST API that provides endpoints below:
 - `GET /fake/user`: This endpoint is protected by JWT. The user must have the role `user` to access it.
 - `GET /fake/admin`: This endpoint is protected by JWT. The user must have the role `admin` to access it.
 
+## Project Code Coverage
+
 The Code Coverage is ~100% for the project.
 
 - [Code](https://github.com/carlos-rian/tivit-test)
@@ -19,6 +21,10 @@ The Code Coverage is ~100% for the project.
 Graph of the code coverage:
 
 ![image](https://codecov.io/github/carlos-rian/tivit-test/graphs/sunburst.svg?token=L5SSNFIBS7)
+
+Last Pull Request:
+
+- [Pull Request](https://github.com/carlos-rian/tivit-test/pull/1)
 
 ## Requirements
 
