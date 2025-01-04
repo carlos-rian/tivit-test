@@ -1,4 +1,4 @@
-from fastapi import Header, HTTPException, status
+from fastapi import HTTPException, Header, status
 
 from src.common.basemodel import User, UserRole
 from src.common.oauth import get_current_user
