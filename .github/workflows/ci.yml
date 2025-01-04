@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
@@ -52,3 +55,5 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: tivit_api_${{ matrix.os }}_${{ matrix.python-version }}
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
