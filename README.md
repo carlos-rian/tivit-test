@@ -9,12 +9,15 @@ The project is a REST API that provides endpoints below:
 - `GET /fake/user`: This endpoint is protected by JWT. The user must have the role `user` to access it.
 - `GET /fake/admin`: This endpoint is protected by JWT. The user must have the role `admin` to access it.
 
-Code: https://github.com/carlos-rian/tivit-test
-Code Coverage: https://app.codecov.io/github/carlos-rian/tivit-test
+The Code Coverage is 100% for the project.
+
+- `Code`: https://github.com/carlos-rian/tivit-test
+- `Code Coverage`: https://app.codecov.io/github/carlos-rian/tivit-test/tree/main
+
 
 ## Requirements
 
-**(Run API)**:
+**Run API**:
     - [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) (Containerization)
 
 **Run Tests**:
