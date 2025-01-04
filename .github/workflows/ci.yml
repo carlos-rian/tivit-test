@@ -1,0 +1,54 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      max-parallel: 6
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.12"]
+      fail-fast: false
+    env:
+      DATABASE_URI: "postgresql://postgres:postgres@localhost:5432/postgres"
+      JWT_SECRET_KEY: "MY_SECRET_KEY"
+
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: uploading database
+        run: docker run --name postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=postgres -p 5432:5432 -d postgres
+
+      - name: wait database container
+        run: |
+          docker ps -a && \
+          sleep 20
+      
+      - name: installing uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version-file: ${{ matrix.python-version }}
+      
+      - name: install the project
+        run: uv sync --all-extras --dev
+
+      - name: Run the tests
+        run: uv run pytest -vv -x -s --cov=. --cov-report=term-missing:skip-covered --cov-report=xml tests ${@}
+      
+      - name: upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: tivit_api_${{ matrix.os }}_${{ matrix.python-version }}
