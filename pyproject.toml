@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "fastapi[standard]>=0.115.6",
+    "guvicorn-logger>=0.1.17",
     "orjson>=3.10.13",
     "passlib[bcrypt]>=1.7.4",
     "pyhumps>=3.8.0",

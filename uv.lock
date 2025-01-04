@@ -25,6 +25,19 @@ wheels = [
 ]
 
 [[package]]
+name = "asgi-correlation-id"
+version = "4.3.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "packaging" },
+    { name = "starlette" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f4/ff/a6538245ac1eaa7733ec6740774e9d5add019e2c63caa29e758c16c0afdd/asgi_correlation_id-4.3.4.tar.gz", hash = "sha256:ea6bc310380373cb9f731dc2e8b2b6fb978a76afe33f7a2384f697b8d6cd811d", size = 20075 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d9/ab/6936e2663c47a926e0659437b9333ad87d1ff49b1375d239026e0a268eba/asgi_correlation_id-4.3.4-py3-none-any.whl", hash = "sha256:36ce69b06c7d96b4acb89c7556a4c4f01a972463d3d49c675026cbbd08e9a0a2", size = 15262 },
+]
+
+[[package]]
 name = "asgi-lifespan"
 version = "2.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -273,6 +286,32 @@ wheels = [
 [package.optional-dependencies]
 standard = [
     { name = "uvicorn", extra = ["standard"] },
+]
+
+[[package]]
+name = "gunicorn"
+version = "23.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "packaging" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/34/72/9614c465dc206155d93eff0ca20d42e1e35afc533971379482de953521a4/gunicorn-23.0.0.tar.gz", hash = "sha256:f014447a0101dc57e294f6c18ca6b40227a4c90e9bdb586042628030cba004ec", size = 375031 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/cb/7d/6dac2a6e1eba33ee43f318edbed4ff29151a49b5d37f080aad1e6469bca4/gunicorn-23.0.0-py3-none-any.whl", hash = "sha256:ec400d38950de4dfd418cff8328b2c8faed0edb0d517d3394e457c317908ca4d", size = 85029 },
+]
+
+[[package]]
+name = "guvicorn-logger"
+version = "0.1.17"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "asgi-correlation-id" },
+    { name = "gunicorn" },
+    { name = "uvicorn" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/57/a1/79ca19c7fbbd8370185ba0b524280789f327318c46e8525def3b6362096f/guvicorn_logger-0.1.17.tar.gz", hash = "sha256:36d75fc8dee2be375c197af4cfa030e3e27e292ce432ffd0f4a46ac8c8e1a74a", size = 3748 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6a/db/372df0e331a981721c6253a5e5cba851591dff13866e68d2eed28bc27a71/guvicorn_logger-0.1.17-py3-none-any.whl", hash = "sha256:3a65ce9522d11ada1ad7263be6894ab82bfc0784c29a9407b0b3599fef1024c2", size = 4607 },
 ]
 
 [[package]]
@@ -867,6 +906,7 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "fastapi", extra = ["standard"] },
+    { name = "guvicorn-logger" },
     { name = "orjson" },
     { name = "passlib", extra = ["bcrypt"] },
     { name = "pyhumps" },
@@ -888,6 +928,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "fastapi", extras = ["standard"], specifier = ">=0.115.6" },
+    { name = "guvicorn-logger", specifier = ">=0.1.17" },
     { name = "orjson", specifier = ">=3.10.13" },
     { name = "passlib", extras = ["bcrypt"], specifier = ">=1.7.4" },
     { name = "pyhumps", specifier = ">=3.8.0" },
