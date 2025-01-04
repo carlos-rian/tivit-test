@@ -13,8 +13,8 @@ The project is a REST API that provides endpoints below:
 
 The Code Coverage is ~100% for the project.
 
-- `Code`: https://github.com/carlos-rian/tivit-test
-- `Code Coverage`: https://app.codecov.io/github/carlos-rian/tivit-test/tree/main
+- [Code](https://github.com/carlos-rian/tivit-test)
+- [Code Coverage](https://codecov.io/github/carlos-rian/tivit-test)
 
 Graph of the code coverage:
 
