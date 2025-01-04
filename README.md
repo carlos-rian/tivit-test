@@ -1,5 +1,7 @@
 # TIVIT Backend Challenge
 
+[![codecov](https://codecov.io/github/carlos-rian/tivit-test/graph/badge.svg?token=L5SSNFIBS7)](https://codecov.io/github/carlos-rian/tivit-test)
+
 This repository contains the solution for the TIVIT Backend Challenge.
 
 The project is a REST API that provides endpoints below:
