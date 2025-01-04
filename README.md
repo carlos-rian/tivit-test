@@ -1,6 +1,6 @@
 # TIVIT Backend Challenge
 
-[![codecov](https://codecov.io/github/carlos-rian/tivit-test/graph/badge.svg?token=L5SSNFIBS7)](https://codecov.io/github/carlos-rian/tivit-test)
+[![codecov](https://codecov.io/github/carlos-rian/tivit-test/branch/main/graph/badge.svg?token=L5SSNFIBS7)](https://codecov.io/github/carlos-rian/tivit-test)
 
 This repository contains the solution for the TIVIT Backend Challenge.
 
@@ -11,11 +11,14 @@ The project is a REST API that provides endpoints below:
 - `GET /fake/user`: This endpoint is protected by JWT. The user must have the role `user` to access it.
 - `GET /fake/admin`: This endpoint is protected by JWT. The user must have the role `admin` to access it.
 
-The Code Coverage is 100% for the project.
+The Code Coverage is ~100% for the project.
 
 - `Code`: https://github.com/carlos-rian/tivit-test
 - `Code Coverage`: https://app.codecov.io/github/carlos-rian/tivit-test/tree/main
 
+Graph of the code coverage:
+
+![image](https://codecov.io/github/carlos-rian/tivit-test/graphs/sunburst.svg?token=L5SSNFIBS7)
 
 ## Requirements
 
