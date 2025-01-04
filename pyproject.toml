@@ -10,14 +10,19 @@ dependencies = [
     "passlib[bcrypt]>=1.7.4",
     "pyhumps>=3.8.0",
     "pysqlx-engine>=0.3.2",
-    "pytest-asyncio>=0.25.1",
-    "pytest-cov>=6.0.0",
-    "pytest-dotenv>=0.5.2",
-    "pytest[standard]>=8.3.4",
     "python-jose[cryptography]>=3.3.0",
     "scalar-fastapi>=1.0.3",
 ]
 
+[dependency-groups]
+dev = [
+    "asgi-lifespan>=2.1.0",
+    "taskipy>=1.14.1",
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.25.1",
+    "pytest-cov>=6.0.0",
+    "pytest-dotenv>=0.5.2",
+]
 
 # ruff
 [tool.ruff]
@@ -31,3 +36,19 @@ docstring-code-line-length = 120
 
 [tool.ruff.lint]
 ignore = ["E402", "F403", "F405"]
+
+[tool.ruff.lint.isort]
+case-sensitive = true
+combine-as-imports = true
+
+[tool.pytest.ini_options]
+pythonpaths = "."
+addopts = "-p no:warnings"
+asyncio_default_fixture_loop_scope = "session"
+
+[tool.taskipy.tasks]
+lint = "ruff check . && ruff check . --diff"
+format = "ruff check . --fix --select I && ruff format ."
+pre_test = 'task lint'
+test = "pytest tests -vv -x -s --cov=."
+cov = "coverage html"
