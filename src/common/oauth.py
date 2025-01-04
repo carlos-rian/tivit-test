@@ -1,4 +1,5 @@
 # app/auth.py
+import logging
 from datetime import UTC, datetime, timedelta
 
 from fastapi import HTTPException, status
@@ -10,6 +11,7 @@ from src.common.basemodel import User
 from src.common.logger import Logger
 from src.config.settings import Settings
 
+logging.getLogger("passlib").setLevel(logging.ERROR)
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -18,6 +20,9 @@ def verify_password(plain_password: str, hashed_password: str):
 
 
 def get_password_hash(password: str) -> str:
+	# this function could be improved to use a better practice for hashing passwords
+	# for example, using a salt or a more secure hashing algorithm like argon2
+	# but for this example, bcrypt is enough, and it's very easy to use with passlib
 	return pwd_context.hash(secret=password)
 
 
