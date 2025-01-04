@@ -10,7 +10,7 @@ def get_cors_origins() -> list[str]:
 
 
 class Settings:
-	ENV: Literal["dev", "stg", "prd"] = getenv("ENV", "prd")
+	ENV: Literal["dev", "stg", "prd"] = getenv("ENV", "dev")
 	DATABASE_URI: str = getenv("DATABASE_URI")
 	DATABASE_POOL_MIN_SIZE: int = int(getenv("DATABASE_POOL_MIN_SIZE", 2))
 	DATABASE_POOL_MAX_SIZE: int = int(getenv("DATABASE_POOL_MAX_SIZE", 10))
@@ -25,14 +25,4 @@ class Settings:
 	API_DESCRIPTION: str = "API for TIVIT Recruitment Process"
 	API_CORS_ORIGINS: list[str] = get_cors_origins()
 
-	@property
-	def is_dev(self) -> bool:
-		return self.ENV == "dev"
-
-	@property
-	def is_stg(self) -> bool:
-		return self.ENV == "stg"
-
-	@property
-	def is_prd(self) -> bool:
-		return self.ENV == "prd"
+	is_dev: bool = ENV == "dev"
