@@ -1,4 +1,5 @@
 from os import getenv
+from typing import Literal
 from uuid import uuid4
 
 
@@ -9,6 +10,7 @@ def get_cors_origins() -> list[str]:
 
 
 class Settings:
+	ENV: Literal["dev", "stg", "prd"] = getenv("ENV", "prd")
 	DATABASE_URI: str = getenv("DATABASE_URI")
 	DATABASE_POOL_MIN_SIZE: int = int(getenv("DATABASE_POOL_MIN_SIZE", 2))
 	DATABASE_POOL_MAX_SIZE: int = int(getenv("DATABASE_POOL_MAX_SIZE", 10))
@@ -22,3 +24,15 @@ class Settings:
 	API_VERSION: str = "0.1.0"
 	API_DESCRIPTION: str = "API for TIVIT Recruitment Process"
 	API_CORS_ORIGINS: list[str] = get_cors_origins()
+
+	@property
+	def is_dev(self) -> bool:
+		return self.ENV == "dev"
+
+	@property
+	def is_stg(self) -> bool:
+		return self.ENV == "stg"
+
+	@property
+	def is_prd(self) -> bool:
+		return self.ENV == "prd"
