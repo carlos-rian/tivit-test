@@ -9,6 +9,9 @@ The project is a REST API that provides endpoints below:
 - `GET /fake/user`: This endpoint is protected by JWT. The user must have the role `user` to access it.
 - `GET /fake/admin`: This endpoint is protected by JWT. The user must have the role `admin` to access it.
 
+Code: https://github.com/carlos-rian/tivit-test
+Code Coverage: https://app.codecov.io/github/carlos-rian/tivit-test
+
 ## Requirements
 
 **(Run API)**:
@@ -42,7 +45,7 @@ To run the tests, you need to execute the following commands:
 
 2. Create the virtualenv and install the project dependencies
     ```bash
-    uv sync
+    uv sync --all-extras --dev
     ```
 
 3. Create a postgres database
@@ -65,3 +68,6 @@ To run the tests, you need to execute the following commands:
     ```bash
     task coverage
     ```
+
+7. Open the coverage report in your browser
+- htmlcov/index.html
