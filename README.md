@@ -55,35 +55,51 @@ You can run some requests using the interface provided by Scalar at `http://loca
 To run the tests, you need to execute the following commands:
 
 1. Install Python 3.12
-    ```bash
-    uv python install 3.12
-    ```
+
+```bash
+uv python install 3.12
+```
 
 2. Create the virtualenv and install the project dependencies
-    ```bash
-    uv sync --all-extras --dev
-    ```
+
+```bash
+uv venv --python 3.12
+uv sync --all-extras --dev
+```
 
 3. Create a postgres database
-    ```bash
-    docker run --name postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=postgres -p 5432:5432 -d postgres
-    ```
+
+```bash
+docker run --name postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=postgres -p 5432:5432 -d postgres
+```
 
 4. Set the environment variables, the JWT_SECRET_KEY is a secret key that you can define.
-    ```bash
-    export DATABASE_URI="postgresql://postgres:postgres@localhost:5432/postgres"
-    export JWT_SECRET_KEY="MY_SECRET_KEY"
-    ```
+
+- Linux
+
+```bash
+export DATABASE_URI="postgresql://postgres:postgres@localhost:5432/postgres"
+export JWT_SECRET_KEY="MY_SECRET_KEY"
+```
+
+- Windows
+
+```bash
+set DATABASE_URI="postgresql://postgres:postgres@localhost:5432/postgres"
+set JWT_SECRET_KEY="MY_SECRET_KEY"
+```
 
 5. Run the tests
-    ```bash
-    task test
-    ```
+
+```bash
+uv run pytest tests -vv -x -s --cov=.
+```
 
 6. Generate the coverage report
-    ```bash
-    task coverage
-    ```
+
+```bash
+uv run coverage html
+```
 
 7. Open the coverage report in your browser
 - htmlcov/index.html
