@@ -15,15 +15,16 @@ dependencies = [
     "scalar-fastapi>=1.0.3",
 ]
 
-[dependency-groups]
-dev = [
+[tool.uv]
+dev-dependencies = [
     "asgi-lifespan>=2.1.0",
-    "taskipy>=1.14.1",
     "pytest>=8.3.4",
     "pytest-asyncio>=0.25.1",
     "pytest-cov>=6.0.0",
     "pytest-dotenv>=0.5.2",
+    "taskipy>=1.14.1",
 ]
+
 
 # ruff
 [tool.ruff]
