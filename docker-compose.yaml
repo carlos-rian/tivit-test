@@ -4,7 +4,7 @@ services:
   web:
     container_name: api
     build: .
-    command: uvicorn --factory src.main:create_app --host 0.0.0.0 --port 8000
+    command: ["dockerize", "-wait", "tcp://db:5432", "-timeout", "60s", "uvicorn", "--factory", "src.main:create_app", "--host", "0.0.0.0", "--port", "8000"]
     environment:
       - DATABASE_URI=postgresql://postgres:postgres@db/postgres
     
@@ -14,6 +14,12 @@ services:
       - db
     ports:
       - "8000:8000"
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   
   db:
     container_name: db
@@ -24,3 +30,9 @@ services:
       POSTGRES_DB: postgres
     ports:
       - "5432:5432"
+    
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
