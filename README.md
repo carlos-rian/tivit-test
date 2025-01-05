@@ -29,11 +29,13 @@ Last Pull Request:
 ## Requirements
 
 **Run API**:
-    - [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) (Containerization)
+
+- [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) (Containerization)
 
 **Run Tests**:
-    - [Python 3.12](https://www.python.org/) (Language used in the project)
-    - [UV](https://astral.sh/blog/uv) (Python's Package Manager)
+
+- [Python 3.12](https://www.python.org/) (Language used in the project)
+- [UV](https://astral.sh/blog/uv) (Python's Package Manager)
 
 ## Running the project using Docker
 
